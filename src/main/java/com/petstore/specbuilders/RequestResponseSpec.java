@@ -11,7 +11,7 @@ import java.util.Properties;
 
 public class RequestResponseSpec {
 
-    public static RequestSpecification req;
+    public static RequestSpecification baseRequestSpecification;
 
     public static Properties prop;
 
@@ -22,17 +22,17 @@ public class RequestResponseSpec {
     }
 
 
-    public static RequestSpecification requestSpecification() throws FileNotFoundException {
+    public static RequestSpecification requestSpecification() throws FileNotFoundException {  //Base Request Specification and Request Logging method
 
-        if(req==null){
+        if(baseRequestSpecification ==null){
             PrintStream log = new PrintStream(new FileOutputStream("logging.txt"));
-            req = new RequestSpecBuilder().setBaseUri(prop.getProperty("baseURL"))
+            baseRequestSpecification = new RequestSpecBuilder().setBaseUri(prop.getProperty("baseURL"))
                     .setContentType(ContentType.JSON)
                     .addFilter(RequestLoggingFilter.logRequestTo(log))
                     .addFilter(ResponseLoggingFilter.logResponseTo(log)).build();
-            return req;}
+            return baseRequestSpecification;}
 
-        return req;
+        return baseRequestSpecification;
 
     }
 }

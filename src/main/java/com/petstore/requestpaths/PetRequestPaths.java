@@ -1,6 +1,6 @@
 package com.petstore.requestpaths;
 
-public enum PetRequestPaths {
+public enum PetRequestPaths {   //enum for maintaining request URL Parameters
 
     ADDPET("/pet"),
     GETPETBYID("/pet"),

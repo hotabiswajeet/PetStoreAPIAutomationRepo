@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.petstore.runner.TestRunner
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.274 sec
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 19.246 sec

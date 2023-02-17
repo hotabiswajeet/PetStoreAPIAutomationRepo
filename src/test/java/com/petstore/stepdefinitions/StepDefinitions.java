@@ -18,9 +18,11 @@ import io.restassured.specification.ResponseSpecification;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Locale;
+import java.util.Date;
 import java.util.TimeZone;
 
 import static io.restassured.RestAssured.given;
@@ -35,7 +37,7 @@ public class StepDefinitions extends RequestResponseSpec {
 
     RequestSpecification request;
 
-    ResponseSpecification resSpec;
+    ResponseSpecification baseResponseSpecification;
 
     AddPetPojo pojoObject;
 
@@ -48,6 +50,8 @@ public class StepDefinitions extends RequestResponseSpec {
     PlaceOrderPojo findPurchaseOrderResponse;
 
     DeleteOrderPojo deleteOrder;
+
+    String orderDate;
 
 
 
@@ -75,14 +79,14 @@ public class StepDefinitions extends RequestResponseSpec {
     public void user_calls_api_with_request(String requestName, String requestMethod) throws FileNotFoundException {
 
         PetRequestPaths p =PetRequestPaths.valueOf(requestName.toUpperCase());
-        resSpec = new ResponseSpecBuilder().expectContentType(ContentType.JSON).build();
+        baseResponseSpecification = new ResponseSpecBuilder().expectContentType(ContentType.JSON).build();
 
         if(requestName.equalsIgnoreCase("AddPet")&&requestMethod.equals("Post"))
         {
         Utility utility = new Utility();
         AddPetPojo pj = utility.pojoObject(id,name,categoryId,categoryName,prop.getProperty("Status"));
         request = given().spec(requestSpecification()).body(pj);
-        res = request.when().post(p.getResource()).then().spec(resSpec).extract().response();
+        res = request.when().post(p.getResource()).then().spec(baseResponseSpecification).extract().response();
         statusCode = res.getStatusCode();
         pojoObject = res.as(AddPetPojo.class);
         }
@@ -90,7 +94,7 @@ public class StepDefinitions extends RequestResponseSpec {
         if(requestName.equalsIgnoreCase("GetPetByID")&&requestMethod.equals("Get"))
         {
             request = given().spec(requestSpecification()).pathParam("key",id);
-            res = request.when().get(p.getResource()+"/{key}").then().spec(resSpec).extract().response();
+            res = request.when().get(p.getResource()+"/{key}").then().spec(baseResponseSpecification).extract().response();
             statusCode = res.getStatusCode();
             pojoObject = res.as(AddPetPojo.class);
         }
@@ -98,7 +102,7 @@ public class StepDefinitions extends RequestResponseSpec {
         if(requestName.equalsIgnoreCase("GetPetByStatus")&&requestMethod.equals("Get"))
         {
             request = given().spec(requestSpecification()).queryParam("status",prop.getProperty("Status"));
-            res = request.when().get(p.getResource()).then().spec(resSpec).extract().response();
+            res = request.when().get(p.getResource()).then().spec(baseResponseSpecification).extract().response();
             statusCode = res.getStatusCode();
 
         }
@@ -107,8 +111,9 @@ public class StepDefinitions extends RequestResponseSpec {
         {
             Utility utility = new Utility();
             PlaceOrderPojo orderObject = utility.orderPojoObject(id,categoryId,prop.getProperty("Quantity"),prop.getProperty("OrderStatus"), prop.getProperty("OrderComplete"));
+            orderDate = orderObject.getShipDate();
             request = given().spec(requestSpecification()).body(orderObject);
-            res = request.when().post(p.getResource()).then().spec(resSpec).extract().response();
+            res = request.when().post(p.getResource()).then().spec(baseResponseSpecification).extract().response();
             statusCode = res.getStatusCode();
             placeOrderPojo = res.as(PlaceOrderPojo.class);
 
@@ -117,7 +122,7 @@ public class StepDefinitions extends RequestResponseSpec {
         if(requestName.equalsIgnoreCase("GetPurchaseOrder")&&requestMethod.equals("Get"))
         {
             request = given().spec(requestSpecification()).pathParam("key",id);
-            res = request.when().get(p.getResource()+"/{key}").then().spec(resSpec).extract().response();
+            res = request.when().get(p.getResource()+"/{key}").then().spec(baseResponseSpecification).extract().response();
             statusCode = res.getStatusCode();
             if(String.valueOf(statusCode).equals("200")) {
                 findPurchaseOrderResponse = res.as(PlaceOrderPojo.class);
@@ -132,7 +137,7 @@ public class StepDefinitions extends RequestResponseSpec {
         {
 
             request = given().spec(requestSpecification()).pathParam("key",id);
-            res = request.when().delete(p.getResource()+"/{key}").then().spec(resSpec).extract().response();
+            res = request.when().delete(p.getResource()+"/{key}").then().spec(baseResponseSpecification).extract().response();
             statusCode = res.getStatusCode();
             deleteOrder = res.as(DeleteOrderPojo.class);
 
@@ -184,19 +189,28 @@ public class StepDefinitions extends RequestResponseSpec {
     }
 
     @Then("verify the response parameters are the same as passed in Body")
-    public void verify_the_response_parameters_are_the_same_as_passed_in_body() {
+    public void verify_the_response_parameters_are_the_same_as_passed_in_body() throws ParseException {
+
+        DateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        utcFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date date = utcFormat.parse(orderDate);
+        DateFormat offsetFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'+0000'");
+        offsetFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        orderDate = offsetFormat.format(date); //UTC to UTC Offset conversion
 
         String responseID = placeOrderPojo.getId();
         String responsePetID = placeOrderPojo.getPetId();
         String responseQuantity = placeOrderPojo.getQuantity();
         String responseStatus = placeOrderPojo.getStatus();
         String responseComplete = placeOrderPojo.getComplete();
+        String responseDate = placeOrderPojo.getShipDate();
 
         assertEquals(id,responseID);
         assertEquals(categoryId,responsePetID);
         assertEquals(prop.getProperty("Quantity"),responseQuantity);
         assertEquals(prop.getProperty("OrderStatus"),responseStatus);
         assertEquals(prop.getProperty("OrderComplete"),responseComplete);
+        assertEquals(orderDate,responseDate);
 
     }
 

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class Utility {
+public class Utility { //Utility class for serialization purpose
 
     public AddPetPojo pojoObject(String id, String name, String categoryId, String categoryName,String status)
     {
