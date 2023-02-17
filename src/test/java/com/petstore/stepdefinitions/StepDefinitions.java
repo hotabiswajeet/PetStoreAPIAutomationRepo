@@ -1,6 +1,7 @@
 package com.petstore.stepdefinitions;
 
 import com.petstore.pojo.addpet.AddPetPojo;
+import com.petstore.pojo.deleteorder.DeleteOrderPojo;
 import com.petstore.pojo.placeorder.PlaceOrderPojo;
 import com.petstore.requestpaths.PetRequestPaths;
 import com.petstore.specbuilders.RequestResponseSpec;
@@ -23,8 +24,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class StepDefinitions extends RequestResponseSpec {
 
@@ -43,7 +43,11 @@ public class StepDefinitions extends RequestResponseSpec {
 
     int statusCode;
 
-    PlaceOrderPojo placeOrderPojo;
+    static PlaceOrderPojo placeOrderPojo;
+
+    PlaceOrderPojo findPurchaseOrderResponse;
+
+    DeleteOrderPojo deleteOrder;
 
 
 
@@ -70,10 +74,10 @@ public class StepDefinitions extends RequestResponseSpec {
     @When("User calls {string} API with {string} Request")
     public void user_calls_api_with_request(String requestName, String requestMethod) throws FileNotFoundException {
 
-        PetRequestPaths p =PetRequestPaths.valueOf(requestName);
-        resSpec = new ResponseSpecBuilder().expectContentType(ContentType.JSON).expectStatusCode(200).build();
+        PetRequestPaths p =PetRequestPaths.valueOf(requestName.toUpperCase());
+        resSpec = new ResponseSpecBuilder().expectContentType(ContentType.JSON).build();
 
-        if(requestName.equals("AddPet")&&requestMethod.equals("Post"))
+        if(requestName.equalsIgnoreCase("AddPet")&&requestMethod.equals("Post"))
         {
         Utility utility = new Utility();
         AddPetPojo pj = utility.pojoObject(id,name,categoryId,categoryName,prop.getProperty("Status"));
@@ -83,7 +87,7 @@ public class StepDefinitions extends RequestResponseSpec {
         pojoObject = res.as(AddPetPojo.class);
         }
 
-        if(requestName.equals("GetPetByID")&&requestMethod.equals("Get"))
+        if(requestName.equalsIgnoreCase("GetPetByID")&&requestMethod.equals("Get"))
         {
             request = given().spec(requestSpecification()).pathParam("key",id);
             res = request.when().get(p.getResource()+"/{key}").then().spec(resSpec).extract().response();
@@ -91,7 +95,7 @@ public class StepDefinitions extends RequestResponseSpec {
             pojoObject = res.as(AddPetPojo.class);
         }
 
-        if(requestName.equals("GetPetByStatus")&&requestMethod.equals("Get"))
+        if(requestName.equalsIgnoreCase("GetPetByStatus")&&requestMethod.equals("Get"))
         {
             request = given().spec(requestSpecification()).queryParam("status",prop.getProperty("Status"));
             res = request.when().get(p.getResource()).then().spec(resSpec).extract().response();
@@ -99,7 +103,7 @@ public class StepDefinitions extends RequestResponseSpec {
 
         }
 
-        if(requestName.equals("PlaceOrder")&&requestMethod.equals("Post"))
+        if(requestName.equalsIgnoreCase("PlaceOrder")&&requestMethod.equals("Post"))
         {
             Utility utility = new Utility();
             PlaceOrderPojo orderObject = utility.orderPojoObject(id,categoryId,prop.getProperty("Quantity"),prop.getProperty("OrderStatus"), prop.getProperty("OrderComplete"));
@@ -109,6 +113,32 @@ public class StepDefinitions extends RequestResponseSpec {
             placeOrderPojo = res.as(PlaceOrderPojo.class);
 
         }
+
+        if(requestName.equalsIgnoreCase("GetPurchaseOrder")&&requestMethod.equals("Get"))
+        {
+            request = given().spec(requestSpecification()).pathParam("key",id);
+            res = request.when().get(p.getResource()+"/{key}").then().spec(resSpec).extract().response();
+            statusCode = res.getStatusCode();
+            if(String.valueOf(statusCode).equals("200")) {
+                findPurchaseOrderResponse = res.as(PlaceOrderPojo.class);
+            }
+            if(String.valueOf(statusCode).equals("404"))
+            {
+                deleteOrder = res.as(DeleteOrderPojo.class);
+            }
+        }
+
+        if(requestName.equalsIgnoreCase("DeletePurchaseOrder")&&requestMethod.equals("Delete"))
+        {
+
+            request = given().spec(requestSpecification()).pathParam("key",id);
+            res = request.when().delete(p.getResource()+"/{key}").then().spec(resSpec).extract().response();
+            statusCode = res.getStatusCode();
+            deleteOrder = res.as(DeleteOrderPojo.class);
+
+        }
+
+
 
 
 
@@ -168,8 +198,58 @@ public class StepDefinitions extends RequestResponseSpec {
         assertEquals(prop.getProperty("OrderStatus"),responseStatus);
         assertEquals(prop.getProperty("OrderComplete"),responseComplete);
 
+    }
+
+    @Then("response parameters are same as for Place Order Request")
+    public void response_parameters_are_same_as_for_place_order_request() {
+
+        assertEquals(placeOrderPojo.getShipDate(),findPurchaseOrderResponse.getShipDate());
+        assertEquals(placeOrderPojo.getId(),findPurchaseOrderResponse.getId());
+        assertEquals(placeOrderPojo.getPetId(),findPurchaseOrderResponse.getPetId());
+        assertEquals(placeOrderPojo.getQuantity(),findPurchaseOrderResponse.getQuantity());
+        assertEquals(placeOrderPojo.getStatus(),findPurchaseOrderResponse.getStatus());
+        assertEquals(placeOrderPojo.getComplete(),findPurchaseOrderResponse.getComplete());
 
     }
+
+    @Then("In case of successful {string} request {string} in response is equal to {string}")
+    public void in_case_of_successful_request_in_response_is_equal_to(String requestName,String verificationParameter, String value) {
+
+        if(requestName.equals("DeletePurchaseOrder")) {
+            switch (verificationParameter) {
+                case "message":
+                    value = id;
+                    assertEquals(value, deleteOrder.getMessage());
+                    break;
+                case "type":
+                    assertEquals(value, deleteOrder.getType());
+                    break;
+                default:
+                    fail("Conditions not matched");
+
+            }
+        }
+
+        if(requestName.equals("GetPurchaseOrder")) {
+            switch (verificationParameter) {
+                case "message":
+                    assertEquals(value, deleteOrder.getMessage());
+                    break;
+                case "type":
+                    assertEquals(value, deleteOrder.getType());
+                    break;
+                default:
+                    fail("Conditions not matched");
+
+            }
+        }
+
+    }
+
+
+
+
+
 
 
 

@@ -2,10 +2,12 @@ package com.petstore.requestpaths;
 
 public enum PetRequestPaths {
 
-    AddPet("/pet"),
-    GetPetByID("/pet"),
-    GetPetByStatus("/pet/findByStatus"),
-    PlaceOrder("/store/order");
+    ADDPET("/pet"),
+    GETPETBYID("/pet"),
+    GETPETBYSTATUS("/pet/findByStatus"),
+    PLACEORDER("/store/order"),
+    GETPURCHASEORDER("/store/order"),
+    DELETEPURCHASEORDER("/store/order");
 
     String s;
     PetRequestPaths(String s)

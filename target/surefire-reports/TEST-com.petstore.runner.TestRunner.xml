@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="3" failures="0" name="com.petstore.runner.TestRunner" time="6.068" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="com.petstore.runner.TestRunner" time="12.861" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="17+35-LTS-2724"/>
@@ -61,7 +61,8 @@
     <property name="sun.stdout.encoding" value="cp850"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="Adding a Pet" name="Doing a Post Request to add a Pet into the System" time="3.671"/>
-  <testcase classname="Retrieving a Pet" name="Doing a Get Request to Retrieve Pet by ID" time="1.195"/>
-  <testcase classname="Retrieving a Pet" name="Doing a Get Request to Retrieve Pet by Status" time="1.202"/>
+  <testcase classname="Adding a Pet" name="Doing a Post Request to add a Pet into the System" time="3.392"/>
+  <testcase classname="Retrieving a Pet" name="Doing a Get Request to Retrieve Pet by ID" time="1.455"/>
+  <testcase classname="Retrieving a Pet" name="Doing a Get Request to Retrieve Pet by Status" time="6.811"/>
+  <testcase classname="Purchase flows for Pet" name="Post Request for Placing a order for a Pet" time="1.203"/>
 </testsuite>
