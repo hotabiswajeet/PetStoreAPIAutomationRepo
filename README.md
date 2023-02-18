@@ -35,8 +35,8 @@ Main Root Folder contains (package info)--
 Run Instructions:
 
 - Git Repo to be cloned to local, switch to master branch
-- For a overall suite run In cmd enter the project directory and hit the command : mvn compile to compile the project and for testrun
-- For Parallel Run and run with report In cmd enter the project directory and hit the command : mvn compile to compile the project and for testrun
+- For a overall suite run In cmd enter the project directory and hit the command : mvn compile to compile the project and mvn verify for testrun
+- For Parallel Run and run with report In cmd enter the project directory and hit the command : mvn compile to compile the project and mvn verify for testrun
 - For atomic test tun: In cmd enter the project directory and hit the command : mvn test verify -Dcucumber.filter.tags="<@tagName>"
 
 To view the report:
