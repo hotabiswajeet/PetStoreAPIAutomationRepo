@@ -1,8 +1,8 @@
-C:\Users\webonise\IdeaProjects\PetStoreAPIAutomation\src\main\java\com\petstore\pojo\addpet\AddPetPojo.java
-C:\Users\webonise\IdeaProjects\PetStoreAPIAutomation\src\main\java\com\petstore\pojo\deleteorder\DeleteOrderPojo.java
-C:\Users\webonise\IdeaProjects\PetStoreAPIAutomation\src\main\java\com\petstore\utilities\Utility.java
-C:\Users\webonise\IdeaProjects\PetStoreAPIAutomation\src\main\java\com\petstore\specbuilders\RequestResponseSpec.java
-C:\Users\webonise\IdeaProjects\PetStoreAPIAutomation\src\main\java\com\petstore\requestpaths\PetRequestPaths.java
-C:\Users\webonise\IdeaProjects\PetStoreAPIAutomation\src\main\java\com\petstore\pojo\addpet\Category.java
-C:\Users\webonise\IdeaProjects\PetStoreAPIAutomation\src\main\java\com\petstore\pojo\addpet\Tags.java
-C:\Users\webonise\IdeaProjects\PetStoreAPIAutomation\src\main\java\com\petstore\pojo\placeorder\PlaceOrderPojo.java
+C:\Users\webonise\TestRun\PetStoreAPIAutomationRepo\src\main\java\com\petstore\pojo\addpet\AddPetPojo.java
+C:\Users\webonise\TestRun\PetStoreAPIAutomationRepo\src\main\java\com\petstore\utilities\Utility.java
+C:\Users\webonise\TestRun\PetStoreAPIAutomationRepo\src\main\java\com\petstore\pojo\addpet\Tags.java
+C:\Users\webonise\TestRun\PetStoreAPIAutomationRepo\src\main\java\com\petstore\specbuilders\RequestResponseSpec.java
+C:\Users\webonise\TestRun\PetStoreAPIAutomationRepo\src\main\java\com\petstore\pojo\addpet\Category.java
+C:\Users\webonise\TestRun\PetStoreAPIAutomationRepo\src\main\java\com\petstore\pojo\placeorder\PlaceOrderPojo.java
+C:\Users\webonise\TestRun\PetStoreAPIAutomationRepo\src\main\java\com\petstore\pojo\deleteorder\DeleteOrderPojo.java
+C:\Users\webonise\TestRun\PetStoreAPIAutomationRepo\src\main\java\com\petstore\requestpaths\PetRequestPaths.java

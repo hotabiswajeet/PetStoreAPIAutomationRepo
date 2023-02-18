@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="com.petstore.runner.TestRunner" time="8.467" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="com.petstore.runner.TestRunner" time="15.959" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="17+35-LTS-2724"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-17\bin"/>
-    <property name="maven.multiModuleProjectDirectory" value="C:\Users\webonise\IdeaProjects\PetStoreAPIAutomation"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\Users\webonise\TestRun\PetStoreAPIAutomationRepo"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="java.vendor.url" value="https://java.oracle.com/"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -15,7 +15,7 @@
     <property name="user.country" value="IN"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\webonise\IdeaProjects\PetStoreAPIAutomation"/>
+    <property name="user.dir" value="C:\Users\webonise\TestRun\PetStoreAPIAutomationRepo"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="java.runtime.version" value="17+35-LTS-2724"/>
     <property name="os.arch" value="amd64"/>
@@ -39,12 +39,11 @@
     <property name="user.timezone" value="Asia/Calcutta"/>
     <property name="file.encoding" value="Cp1252"/>
     <property name="java.specification.version" value="17"/>
-    <property name="cucumber.filter.tags" value="@DeletePurchaseOrder"/>
     <property name="user.name" value="webonise"/>
     <property name="java.class.path" value="C:\Users\webonise\apache-maven-3.8.5\boot\plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="17"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher test verify -Dcucumber.filter.tags=@DeletePurchaseOrder"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher verify"/>
     <property name="java.home" value="C:\Program Files\Java\jdk-17"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -62,5 +61,10 @@
     <property name="sun.stdout.encoding" value="cp850"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="Purchase flows for Pet" name="Delete Purchase Order by ID" time="8.467"/>
+  <testcase classname="Adding a Pet" name="Doing a Post Request to add a Pet into the System" time="3.436"/>
+  <testcase classname="Retrieving a Pet" name="Doing a Get Request to Retrieve Pet by ID" time="1.468"/>
+  <testcase classname="Retrieving a Pet" name="Doing a Get Request to Retrieve Pet by Status" time="5.028"/>
+  <testcase classname="Purchase flows for Pet" name="Post Request for Placing a order for a Pet" time="1.546"/>
+  <testcase classname="Purchase flows for Pet" name="Get Purchase Order by ID" time="1.52"/>
+  <testcase classname="Purchase flows for Pet" name="Delete Purchase Order by ID" time="2.961"/>
 </testsuite>
