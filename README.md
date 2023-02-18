@@ -40,6 +40,12 @@ mvn compile to compile the project and mvn verify for testrun
 - For atomic test tun:
 In cmd enter the project directory and hit the command : mvn test verify -Dcucumber.filter.tags="<@tagName>"
 
+To view the report:
+
+- Go to Target folder inside project directory
+- inside that go to cucumber-html-reports folder
+- Open the overview-features.html file
+
 
 
 
