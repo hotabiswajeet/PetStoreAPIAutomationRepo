@@ -15,22 +15,33 @@ public class RequestResponseSpec {
 
     public static Properties prop;
 
-    public RequestResponseSpec() throws IOException {
-        prop = new Properties();
-        FileInputStream fis = new FileInputStream("src/main/java/com/petstore/specbuilders/config.properties");
-        prop.load(fis);
+    public RequestResponseSpec() {
+        try {
+            prop = new Properties();
+            FileInputStream fis = new FileInputStream("src/main/java/com/petstore/specbuilders/config.properties");
+            prop.load(fis);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
 
-    public static RequestSpecification requestSpecification() throws FileNotFoundException {  //Base Request Specification and Request Logging method
+    public static RequestSpecification requestSpecification()  {  //Base Request Specification and Request Logging method
 
-        if(baseRequestSpecification ==null){
-            PrintStream log = new PrintStream(new FileOutputStream("logging.txt"));
-            baseRequestSpecification = new RequestSpecBuilder().setBaseUri(prop.getProperty("baseURL"))
-                    .setContentType(ContentType.JSON)
-                    .addFilter(RequestLoggingFilter.logRequestTo(log))
-                    .addFilter(ResponseLoggingFilter.logResponseTo(log)).build();
-            return baseRequestSpecification;}
+        try {
+            if (baseRequestSpecification == null) {
+                PrintStream log = new PrintStream(new FileOutputStream("logging.txt"));
+                baseRequestSpecification = new RequestSpecBuilder().setBaseUri(prop.getProperty("baseURL"))
+                        .setContentType(ContentType.JSON)
+                        .addFilter(RequestLoggingFilter.logRequestTo(log))
+                        .addFilter(ResponseLoggingFilter.logResponseTo(log)).build();
+                return baseRequestSpecification;
+            }
+        }catch (FileNotFoundException e )
+        {
+            e.printStackTrace();
+        }
 
         return baseRequestSpecification;
 

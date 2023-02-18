@@ -58,7 +58,7 @@ public class StepDefinitions extends RequestResponseSpec {
 
 
 
-    public StepDefinitions() throws IOException {
+    public StepDefinitions() {
         super();
     }
 
@@ -203,12 +203,8 @@ public class StepDefinitions extends RequestResponseSpec {
     @Then("verify the response parameters are the same as passed in Body")
     public void verify_the_response_parameters_are_the_same_as_passed_in_body() throws ParseException {
 
-        DateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        utcFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-        Date date = utcFormat.parse(orderDate);
-        DateFormat offsetFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'+0000'");
-        offsetFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-        orderDate = offsetFormat.format(date); //UTC to UTC Offset conversion
+        Utility utility = new Utility();
+        String expectedOrderDate = utility.offsetTimeStampConversion(orderDate);
 
         String responseID = placeOrderPojo.getId();
         String responsePetID = placeOrderPojo.getPetId();
@@ -222,7 +218,7 @@ public class StepDefinitions extends RequestResponseSpec {
         assertEquals(prop.getProperty("Quantity"),responseQuantity);
         assertEquals(prop.getProperty("OrderStatus"),responseStatus);
         assertEquals(prop.getProperty("OrderComplete"),responseComplete);
-        assertEquals(orderDate,responseDate);
+        assertEquals(expectedOrderDate,responseDate);
 
 
 
