@@ -15,6 +15,8 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -55,6 +57,7 @@ public class StepDefinitions extends RequestResponseSpec {
 
 
 
+
     public StepDefinitions() throws IOException {
         super();
     }
@@ -74,6 +77,7 @@ public class StepDefinitions extends RequestResponseSpec {
       categoryId = petCategoryID;
       categoryName = petCategoryName;
 
+
     }
     @When("User calls {string} API with {string} Request")
     public void user_calls_api_with_request(String requestName, String requestMethod) throws FileNotFoundException {
@@ -89,6 +93,7 @@ public class StepDefinitions extends RequestResponseSpec {
         res = request.when().post(p.getResource()).then().spec(baseResponseSpecification).extract().response();
         statusCode = res.getStatusCode();
         pojoObject = res.as(AddPetPojo.class);
+
         }
 
         if(requestName.equalsIgnoreCase("GetPetByID")&&requestMethod.equals("Get"))
@@ -97,6 +102,7 @@ public class StepDefinitions extends RequestResponseSpec {
             res = request.when().get(p.getResource()+"/{key}").then().spec(baseResponseSpecification).extract().response();
             statusCode = res.getStatusCode();
             pojoObject = res.as(AddPetPojo.class);
+
         }
 
         if(requestName.equalsIgnoreCase("GetPetByStatus")&&requestMethod.equals("Get"))
@@ -104,6 +110,7 @@ public class StepDefinitions extends RequestResponseSpec {
             request = given().spec(requestSpecification()).queryParam("status",prop.getProperty("Status"));
             res = request.when().get(p.getResource()).then().spec(baseResponseSpecification).extract().response();
             statusCode = res.getStatusCode();
+
 
         }
 
@@ -155,10 +162,11 @@ public class StepDefinitions extends RequestResponseSpec {
         assertEquals(expectedStatusCode,actualStatusCode);
 
 
+
+
     }
     @Then("ID in response is same as ID provided")
     public void id_in_response_is_same_as_id_provided() {
-
 
         String idInResponse = pojoObject.getId();
         assertEquals(id,idInResponse);
@@ -169,6 +177,8 @@ public class StepDefinitions extends RequestResponseSpec {
     public void name_in_response_is_same_as_name_provided() {
        String nameInResponse = pojoObject.getName();
        assertEquals(name,nameInResponse);
+
+
     }
 
     @Then("response contains pet with provided ID and Name")
@@ -185,6 +195,8 @@ public class StepDefinitions extends RequestResponseSpec {
         }
 
         assertTrue(flag);
+
+
 
     }
 
@@ -212,6 +224,8 @@ public class StepDefinitions extends RequestResponseSpec {
         assertEquals(prop.getProperty("OrderComplete"),responseComplete);
         assertEquals(orderDate,responseDate);
 
+
+
     }
 
     @Then("response parameters are same as for Place Order Request")
@@ -223,6 +237,8 @@ public class StepDefinitions extends RequestResponseSpec {
         assertEquals(placeOrderPojo.getQuantity(),findPurchaseOrderResponse.getQuantity());
         assertEquals(placeOrderPojo.getStatus(),findPurchaseOrderResponse.getStatus());
         assertEquals(placeOrderPojo.getComplete(),findPurchaseOrderResponse.getComplete());
+
+
 
     }
 
@@ -257,6 +273,8 @@ public class StepDefinitions extends RequestResponseSpec {
 
             }
         }
+
+
 
     }
 
