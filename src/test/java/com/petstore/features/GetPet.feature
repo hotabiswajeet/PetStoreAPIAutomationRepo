@@ -13,7 +13,7 @@ Feature: Retrieving a Pet
   Scenario: Doing a Get Request to Retrieve Pet by Status
 
     When User calls "GetPetByStatus" API with "Get" Request
-    Then API call is success with statusCode as "400"
+    Then API call is success with statusCode as "200"
     And  response contains pet with provided ID and Name
 
 

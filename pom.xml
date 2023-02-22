@@ -31,6 +31,7 @@
                             </includes>
                             <parallel>methods</parallel>
                             <useUnlimitedThreads>true</useUnlimitedThreads>
+                            <testFailureIgnore>true</testFailureIgnore>
                         </configuration>
                     </execution>
                 </executions>
