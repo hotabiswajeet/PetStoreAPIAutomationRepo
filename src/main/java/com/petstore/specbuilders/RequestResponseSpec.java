@@ -38,10 +38,13 @@ public class RequestResponseSpec {
     public static Properties loadPropertiesFile()
     {
         try {
-            prop = new Properties();
-            FileInputStream fis = new FileInputStream("src/main/java/com/petstore/specbuilders/config.properties");
-            prop.load(fis);
-            return prop;
+            if (prop == null)
+            {
+                prop = new Properties();
+                FileInputStream fis = new FileInputStream("src/main/java/com/petstore/specbuilders/config.properties");
+                prop.load(fis);
+                return prop;
+            }
         } catch (IOException e)
         {
             e.printStackTrace();

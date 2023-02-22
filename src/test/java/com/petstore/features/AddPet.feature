@@ -10,6 +10,6 @@ And ID in response is same as ID provided
 
   Examples:
     |ID         |Name            | CategoryID         |CategoryName            |
-    |130         |Nemo          | 20              |Fish                   |
+    |130         |Nemo           | 20                 |Fish                   |
 
 
