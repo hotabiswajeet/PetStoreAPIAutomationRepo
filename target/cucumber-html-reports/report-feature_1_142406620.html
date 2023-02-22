@@ -76,7 +76,7 @@ $(document).ready(function() {
     <tr class="info">
       <td>cucumber-jvm-example</td>
         <td>1</td>
-      <td>22 Feb 2023, 17:03</td>
+      <td>22 Feb 2023, 19:11</td>
     </tr>
   </tbody>
 </table>
@@ -129,19 +129,19 @@ $(document).ready(function() {
         <tbody>
         <tr>
           <td class="tagname">Retrieving a Pet</td>
-          <td      class="passed"    >7</td>
-          <td >0</td>
-          <td >0</td>
+          <td      class="passed"    >5</td>
+          <td      class="failed"    >1</td>
+          <td     class="skipped"   >1</td>
           <td >0</td>
           <td >0</td>
           <td class="total">7</td>
 
-          <td  class="passed"    >2</td>
-          <td >0</td>
+          <td  class="passed"    >1</td>
+          <td  class="failed"    >1</td>
           <td class="total">2</td>
 
-          <td class="duration" data-value="6112382300">6.112</td>
-          <td class="passed">Passed</td>
+          <td class="duration" data-value="2691042300">2.691</td>
+          <td class="failed">Failed</td>
         </tr>
         </tbody>
 
@@ -173,7 +173,7 @@ $(document).ready(function() {
 </div>
 
 
-<div class="brief passed">
+<div class="brief failed">
   <span class="keyword indention">Feature</span>
   <span class="name">Retrieving a Pet</span>
 
@@ -193,7 +193,7 @@ $(document).ready(function() {
 </div>
 
 
-  <span class="lead-duration duration">1.402</span>
+  <span class="lead-duration duration">1.242</span>
 
 
   <span data-toggle="collapse" class=" collapsed  collapsable-control" data-target="#element-1">
@@ -231,7 +231,7 @@ $(document).ready(function() {
             <span class="keyword indention">Before</span>
               <span class="location name">com.petstore.stepdefinitions.Hooks.addPetAsPrerequisite()</span>
 
-  <span class="lead-duration duration">3.254</span>
+  <span class="lead-duration duration">3.027</span>
 
           </div>
 
@@ -268,7 +268,7 @@ $(document).ready(function() {
   <span class="keyword indention">When</span>
   <span class="name">User calls <span class="argument">&quot;GetPetByID&quot;</span> API with <span class="argument">&quot;Get&quot;</span> Request</span>
 
-  <span class="lead-duration duration">1.402</span>
+  <span class="lead-duration duration">1.242</span>
 
 </div>
 
@@ -389,12 +389,12 @@ $(document).ready(function() {
 </div>
 
 
-  <span class="lead-duration duration">4.710</span>
+  <span class="lead-duration duration">1.448</span>
 
 
-  <span data-toggle="collapse" class=" collapsed  collapsable-control" data-target="#element-4">
+  <span data-toggle="collapse" class=" collapsable-control" data-target="#element-4">
 
-<div class="brief passed">
+<div class="brief failed">
   <span class="keyword indention">Scenario</span>
   <span class="name">Doing a Get Request to Retrieve Pet by Status</span>
 
@@ -405,7 +405,7 @@ $(document).ready(function() {
   </span>
   <div class="description indention"></div>
 
-  <div id="element-4" class="collapse collapsable-details ">
+  <div id="element-4" class="collapse collapsable-details  in ">
 
 
   <div class="inner-level hooks-element-before">
@@ -444,9 +444,9 @@ $(document).ready(function() {
 
 
 <div class="steps inner-level">
-  <div data-toggle="collapse" class=" collapsed  collapsable-control" data-target="#steps-6">
+  <div data-toggle="collapse" class=" collapsable-control" data-target="#steps-6">
 
-<div class="brief passed">
+<div class="brief failed">
   <span class="keyword indention">Steps</span>
   <span class="name"></span>
 
@@ -456,7 +456,7 @@ $(document).ready(function() {
 
   </div>
 
-  <div id="steps-6" class="inner-level collapse collapsable-details ">
+  <div id="steps-6" class="inner-level collapse collapsable-details  in ">
       <div class="step">
 
 
@@ -464,7 +464,7 @@ $(document).ready(function() {
   <span class="keyword indention">When</span>
   <span class="name">User calls <span class="argument">&quot;GetPetByStatus&quot;</span> API with <span class="argument">&quot;Get&quot;</span> Request</span>
 
-  <span class="lead-duration duration">1.874</span>
+  <span class="lead-duration duration">1.443</span>
 
 </div>
 
@@ -487,11 +487,11 @@ $(document).ready(function() {
       <div class="step">
 
 
-<div class="brief step-name-Then passed">
+<div class="brief step-name-Then failed">
   <span class="keyword indention">Then</span>
-  <span class="name">API call is success with statusCode as <span class="argument">&quot;200&quot;</span></span>
+  <span class="name">API call is success with statusCode as <span class="argument">&quot;400&quot;</span></span>
 
-  <span class="lead-duration duration">0.000</span>
+  <span class="lead-duration duration">0.004</span>
 
 </div>
 
@@ -499,6 +499,22 @@ $(document).ready(function() {
 
 
 
+
+  <div class="inner-level">
+    <div class="message indention">
+      <div data-toggle="collapse" class=" collapsable-control" data-target="#msg-7">
+          <a>org.junit.ComparisonFailure:</a>
+      </div>
+      <div id="msg-7" class="collapse collapsable-details  in ">
+        <pre>org.junit.ComparisonFailure: expected:&lt;[4]00&gt; but was:&lt;[2]00&gt;
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at com.petstore.stepdefinitions.StepDefinitions.api_call_is_success_with_status_code_as(StepDefinitions.java:166)
+	at &#10045;.API call is success with statusCode as &quot;400&quot;(file:///C:/Users/webonise/TestRun/PetStoreAPIAutomationRepo/src/test/java/com/petstore/features/GetPet.feature:16)
+</pre>
+      </div>
+    </div>
+  </div>
 
 
 
@@ -514,11 +530,11 @@ $(document).ready(function() {
       <div class="step">
 
 
-<div class="brief step-name-And passed">
+<div class="brief step-name-And skipped">
   <span class="keyword indention">And</span>
   <span class="name">response contains pet with provided ID and Name</span>
 
-  <span class="lead-duration duration">2.835</span>
+  <span class="lead-duration duration">0.000</span>
 
 </div>
 

@@ -60,13 +60,6 @@ public class StepDefinitions extends RequestResponseSpec {
     String orderDate;
 
 
-
-
-    public StepDefinitions() {
-        super();
-    }
-
-
     @Given("User adds a pet with {string} and {string}")
     public void user_adds_a_pet_with_and(String petID, String petName){
 
@@ -92,7 +85,7 @@ public class StepDefinitions extends RequestResponseSpec {
         if(requestName.equalsIgnoreCase("AddPet")&&requestMethod.equals("Post"))
         {
         Utility utility = new Utility();
-        AddPetPojo pj = utility.pojoObject(id,name,categoryId,categoryName,prop.getProperty("Status"));
+        AddPetPojo pj = utility.pojoObject(id,name,categoryId,categoryName,loadPropertiesFile().getProperty("Status"));
         request = given().spec(requestSpecification()).body(pj);
         res = request.when().post(p.getResource()).then().spec(baseResponseSpecification).extract().response();
         statusCode = res.getStatusCode();
@@ -111,7 +104,7 @@ public class StepDefinitions extends RequestResponseSpec {
 
         if(requestName.equalsIgnoreCase("GetPetByStatus")&&requestMethod.equals("Get"))
         {
-            request = given().spec(requestSpecification()).queryParam("status",prop.getProperty("Status"));
+            request = given().spec(requestSpecification()).queryParam("status",loadPropertiesFile().getProperty("Status"));
             res = request.when().get(p.getResource()).then().spec(baseResponseSpecification).extract().response();
             statusCode = res.getStatusCode();
 
@@ -121,7 +114,7 @@ public class StepDefinitions extends RequestResponseSpec {
         if(requestName.equalsIgnoreCase("PlaceOrder")&&requestMethod.equals("Post"))
         {
             Utility utility = new Utility();
-            PlaceOrderPojo orderObject = utility.orderPojoObject(id,categoryId,prop.getProperty("Quantity"),prop.getProperty("OrderStatus"), prop.getProperty("OrderComplete"));
+            PlaceOrderPojo orderObject = utility.orderPojoObject(id,categoryId,loadPropertiesFile().getProperty("Quantity"),loadPropertiesFile().getProperty("OrderStatus"), loadPropertiesFile().getProperty("OrderComplete"));
             orderDate = orderObject.getShipDate();
             request = given().spec(requestSpecification()).body(orderObject);
             res = request.when().post(p.getResource()).then().spec(baseResponseSpecification).extract().response();
@@ -218,9 +211,9 @@ public class StepDefinitions extends RequestResponseSpec {
 
         assertEquals(id,responseID);
         assertEquals(categoryId,responsePetID);
-        assertEquals(prop.getProperty("Quantity"),responseQuantity);
-        assertEquals(prop.getProperty("OrderStatus"),responseStatus);
-        assertEquals(prop.getProperty("OrderComplete"),responseComplete);
+        assertEquals(loadPropertiesFile().getProperty("Quantity"),responseQuantity);
+        assertEquals(loadPropertiesFile().getProperty("OrderStatus"),responseStatus);
+        assertEquals(loadPropertiesFile().getProperty("OrderComplete"),responseComplete);
         assertEquals(expectedOrderDate,responseDate);
 
 
