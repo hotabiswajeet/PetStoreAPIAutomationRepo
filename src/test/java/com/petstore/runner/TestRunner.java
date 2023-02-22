@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 
-@CucumberOptions(features ="src/test/java/com/petstore/features",plugin = "json:target/jsonReports/cucumber-reports.json",glue = "com.petstore.stepdefinitions",dryRun = false,monochrome = true, tags="@DeletePurchaseOrder")
+@CucumberOptions(features ="src/test/java/com/petstore/features",plugin = "json:target/jsonReports/cucumber-reports.json",glue = "com.petstore.stepdefinitions",dryRun = false,monochrome = true)
 
 public class TestRunner {
 
